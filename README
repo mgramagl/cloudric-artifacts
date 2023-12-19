@@ -2,10 +2,13 @@
 
 - Open in CodeSpace
 - Change owners
+
 ```
 sudo bash change_owner.sh
 ```
+
 - Launch the docker
+
 ```
 docker-compose up -d
 ```
