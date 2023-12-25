@@ -1,6 +1,6 @@
 numpy
 pandas
-matplotlib
 http://download.pytorch.org/whl/cpu/torch-2.1.2%2Bcpu-cp311-cp311-linux_x86_64.whl
 onnx
 onnxscript
+onnxruntime
