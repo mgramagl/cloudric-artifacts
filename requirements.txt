@@ -4,3 +4,5 @@ http://download.pytorch.org/whl/cpu/torch-2.1.2%2Bcpu-cp311-cp311-linux_x86_64.w
 onnx==1.15.0
 onnxruntime==1.16.3
 onnxscript==0.1.0.dev20231226
+matplotlib==3.8.2
+statsmodels==0.14.1
