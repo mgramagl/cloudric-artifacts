@@ -1,14 +1,11 @@
 version: '3'
 services:
-  jupyter:
-    user: "1000"
+  python:
     build: 
       context: .
-      dockerfile: ./jupyter/Dockerfile
+      dockerfile: ./predictor_app_python/Dockerfile
     volumes:
-      - ./data:/home/jovyan/data
-      - ./work:/home/jovyan/work
-    ports:
-      - 8888:8888
-    container_name: jupyter_notebook
-    command: "start-notebook.sh --NotebookApp.token="
+      - ./predictor_app_python:/app
+    container_name: python
+    stdin_open: true 
+    tty: true
