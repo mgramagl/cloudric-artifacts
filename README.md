@@ -9,9 +9,13 @@ unzip LPU_models.zip -d predictor_app_python/data/
 ```
 
 
-## Software Dependencies
+## Software Components
+
+We provide Pyhton and C code as used in our paper.
+
+### Python prediction
 This software require some python packages, detailed in the file requirements.txt
-You have two ways of running your code
+You have two ways of running the code
 
 - $I$ Having  working installation of [Docker](https://www.docker.com/) and [docker-compose](https://docs.docker.com/compose/). This repository can be directly executed in Github codespaces and has all the needed software installed.
 1. Launch the docker
@@ -41,5 +45,46 @@ pip install --no-cache-dir -r requirements.txt
 ```
 3. The script will generate all the required files in the predictor_app_python/results folder
 
+### C++ prediction
 
+We also provide the C++ code to run the model in inference using ONNX, as we implemented in our evaluation.
+Also in this case we provide a container for this purpose
+1. Launch the docker
+
+```bash
+docker-compose up -d
+```
+2. compile the application
+
+```bash
+docker exec -w /app -it cplus make
+```
+
+3. run the application
+```bash
+docker exec -w /app/build -it cplus ./lpu_models_app
+```
+
+The generated files will be un the predictor_app_cplus/results folder
+
+In case you dont want to use the provided containers you can
+1. Download the ONNX runtime and uncompress it to the /opt folder
+```bash
+wget -qO- https://github.com/microsoft/onnxruntime/releases/download/v1.16.3/onnxruntime-linux-x64-1.16.3.tgz | tar xz -C /opt 
+```
+2. Add the folder to the LD_LIBRARY_PATH
+```bash
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/onnxruntime-linux-x64-1.16.3/lib/
+sudo ldconfig
+```
+3. Navigate to the source code folder and compile the application
+```bash
+cd predictor_app_cplus
+make
+```
+4. run the application
+```bash
+cd build
+./lpu_models_app
+```
 
