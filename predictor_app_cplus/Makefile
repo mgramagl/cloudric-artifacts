@@ -18,7 +18,7 @@ CFLAGS += $(WERROR_FLAGS)
 SRC_DIR := src
 SRCS-y := $(wildcard $(SRC_DIR)/*.cpp)
 
-CPPFLAGS := -Iinclude -I/usr/local/lib -I/home/ggarcia/onnx_runtime/onnxruntime-linux-x64-1.16.3/lib -I/home/ggarcia/onnx_runtime/onnxruntime-linux-x64-1.16.3/include -MMD -MP -std=c++17 -lm -lstdc++
+CPPFLAGS := -Iinclude -I/usr/local/lib -L/opt/onnxruntime-linux-x64-1.16.3/lib -I/opt/onnxruntime-linux-x64-1.16.3/include -MMD -MP -std=c++17 -lm -lstdc++
 
 all: shared
 .PHONY: shared static
