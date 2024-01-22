@@ -9,3 +9,13 @@ services:
     container_name: python
     stdin_open: true 
     tty: true
+
+  cplus:
+    build: 
+      context: .
+      dockerfile: ./predictor_app_cplus/Dockerfile
+    volumes:
+      - ./predictor_app_cplus:/app
+    container_name: cplus
+    stdin_open: true 
+    tty: true
