@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <sstream>
 #include <iterator>
-#ifdef VERBOSE
+#ifdef OUTDATA
 
 // pretty prints a shape dimension vector
 std::string print_shape(const std::vector<std::int64_t> &v)
@@ -57,11 +57,11 @@ std::ostream &operator<<(std::ostream &os,
     case ONNXTensorElementDataType::ONNX_TENSOR_ELEMENT_DATA_TYPE_BOOL:
         os << "bool";
         break;
-    case ONNXTensorElementDataType::ONNX_TENSOR_ELEMENT_DATA_TYPE_FLOAT16:
+    case ONNXTensorElementDataType::ONNX_TENSOR_ELEMENT_DATA_TYPE_float16:
         os << "float16";
         break;
-    case ONNXTensorElementDataType::ONNX_TENSOR_ELEMENT_DATA_TYPE_DOUBLE:
-        os << "double";
+    case ONNXTensorElementDataType::ONNX_TENSOR_ELEMENT_DATA_TYPE_float:
+        os << "float";
         break;
     case ONNXTensorElementDataType::ONNX_TENSOR_ELEMENT_DATA_TYPE_UINT32:
         os << "uint32_t";
@@ -73,9 +73,9 @@ std::ostream &operator<<(std::ostream &os,
         os << "float real + float imaginary";
         break;
     case ONNXTensorElementDataType::ONNX_TENSOR_ELEMENT_DATA_TYPE_COMPLEX128:
-        os << "double real + float imaginary";
+        os << "float real + float imaginary";
         break;
-    case ONNXTensorElementDataType::ONNX_TENSOR_ELEMENT_DATA_TYPE_BFLOAT16:
+    case ONNXTensorElementDataType::ONNX_TENSOR_ELEMENT_DATA_TYPE_Bfloat16:
         os << "bfloat16";
         break;
     default:
@@ -111,7 +111,7 @@ LpuModels::LpuModels(std::string file_path)
     /**************** Input info ******************/
     // Get the number of input nodes
     size_t numInputNodes = mSession->GetInputCount();
-#ifdef VERBOSE
+#ifdef OUTDATA
     std::cout << "******* Model information below *******" << std::endl;
     std::cout << "Number of Input Nodes: " << numInputNodes << std::endl;
 #endif
@@ -123,7 +123,7 @@ LpuModels::LpuModels(std::string file_path)
         mInputNames.emplace_back(mSession->GetInputNameAllocated(i, allocator).get());
         mInputDims.emplace_back(mSession->GetInputTypeInfo(i).GetTensorTypeAndShapeInfo().GetShape());
         ONNXTensorElementDataType inputType = mSession->GetInputTypeInfo(i).GetTensorTypeAndShapeInfo().GetElementType();
-#ifdef VERBOSE
+#ifdef OUTDATA
         std::cout << "Input Name: " << mInputNames.at(i) << std::endl;
         std::cout << "Input Dimensions: " << print_shape(mInputDims.at(i)) << std::endl;
         std::cout << "Input Type: " << inputType << std::endl;
@@ -138,7 +138,7 @@ LpuModels::LpuModels(std::string file_path)
     /**************** Output info ******************/
     // Get the number of output nodes
     size_t numOutputNodes = mSession->GetOutputCount();
-#ifdef VERBOSE
+#ifdef OUTDATA
     std::cout << "Number of Output Nodes: " << numOutputNodes << std::endl;
 #endif
 
@@ -150,7 +150,7 @@ LpuModels::LpuModels(std::string file_path)
         mOutputDims.emplace_back(mSession->GetOutputTypeInfo(i).GetTensorTypeAndShapeInfo().GetShape());
         ONNXTensorElementDataType outputType = mSession->GetOutputTypeInfo(i).GetTensorTypeAndShapeInfo().GetElementType();
 
-#ifdef VERBOSE
+#ifdef OUTDATA
         std::cout << "Output Name: " << mOutputNames.at(i) << std::endl;
         std::cout << "Output Dimensions: " << print_shape(mOutputDims.at(i)) << std::endl;
         std::cout << "Output Type: " << outputType << std::endl;
@@ -181,7 +181,7 @@ std::vector<float> LpuModels::inference(const std::vector<float> &values)
         memoryInfo, inputTensorValues.data(), inputTensorValues.size(),
        inputDim.data(), inputDim.size()));
 
-#ifdef VERBOSE
+#ifdef OUTDATA
     std::cout<<"Input Tensor Data"<<std::endl;
     std::cout<<print_shape(inputTensors[0].GetTensorTypeAndShapeInfo().GetShape())<<std::endl;
     std::copy(inputTensorValues.begin(), inputTensorValues.end(), std::ostream_iterator<float>(std::cout, " "));

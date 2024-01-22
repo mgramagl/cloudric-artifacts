@@ -2,3 +2,5 @@
 CPU_dataset.csv
 GPU_dataset.csv
 */build/lpu_models*
+results.csv
+ecdf.pdf
