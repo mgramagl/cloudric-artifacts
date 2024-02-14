@@ -147,4 +147,6 @@ int main()
     };
   }  
   results.close();
+
+  std::cout<<"[INFO] Results generated in the predictor_app_cplus/results folder"<<std::endl;
 }

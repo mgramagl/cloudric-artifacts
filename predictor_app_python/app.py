@@ -60,7 +60,7 @@ f.close()
 
 # Generate plots
 results_df = pd.read_csv("results/results.csv", sep=",", header=0)
-print("[INFO] Generating plots")
+print("[INFO] Generating results")
 cpu_results_df = results_df[results_df.m_type == "CPU"]
 gpu_results_df = results_df[results_df.m_type == "GPU"]
 
@@ -88,3 +88,4 @@ ax.set_ylabel("ECDF", fontsize=16)
 
 
 fig.savefig("results/ecdf.pdf")
+print("[INFO] Results generated in the predictor_app_python/results folder")
