@@ -10,6 +10,7 @@ APP = lpu_models_app
 CC = g++
 
 # Flags
+CFLAGS += -DTIME_PROFILE
 CFLAGS += -DALLOW_EXPERIMENTAL_API
 CFLAGS += -O3
 CFLAGS += $(WERROR_FLAGS)

@@ -165,7 +165,7 @@ LpuModels::LpuModels(std::string file_path)
                    { return str.c_str(); });
 }
 
-std::vector<float> LpuModels::inference(const std::vector<float> &values)
+std::pair<std::vector<float>,float> LpuModels::inference(const std::vector<float> &values)
 {
 
 #ifdef TIME_PROFILE
@@ -211,9 +211,9 @@ std::vector<float> LpuModels::inference(const std::vector<float> &values)
 
 #ifdef TIME_PROFILE
     auto duration1 = std::chrono::duration_cast<std::chrono::microseconds>(clock_time::now() - before1);
-    // std::cout << "The inference takes " << duration1.count() << "us" << std::endl;
+    std::cout << "The inference takes " << duration1.count() << "us" << std::endl;
     // std::cout << duration1.count() << std::endl;
 #endif
 
-    return outputTensorValues;
+    return std::make_pair(outputTensorValues,duration1.count());
 }

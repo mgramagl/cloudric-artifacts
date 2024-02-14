@@ -49,7 +49,7 @@ class LpuModels {
      * @brief Perform inference o
      * @return the index of the predicted class
      */
-    std::vector<float> inference(const std::vector<float>& values);
+    std::pair<std::vector<float>,float> inference(const std::vector<float>& values);
 
   private:
     // ORT Environment

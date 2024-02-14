@@ -6,6 +6,7 @@
 '''
 import torch
 import numpy as np
+from time import process_time 
 
 from predictor import Predictor
 
@@ -57,12 +58,23 @@ class LPUModels:
         time_inputs = torch.Tensor(time_inputs)
         
         # Run the model in inference mode
+        start_time = np.zeros(4)
+        stop_time = np.zeros(4)
+        start_time[0] = process_time()
         power_cpu = self.predictor_power_cpu(power_inputs).detach().numpy()[0]
+        stop_time[0] = process_time()
+
+        start_time[1] = process_time()
         time_cpu = float(self.predictor_time_cpu(time_inputs).detach().numpy()[0])
+        stop_time[1] = process_time()
         energy_cpu = float(power_cpu * time_cpu)
         
+        start_time[2] = process_time()
         power_gpu = self.predictor_power_gpu(power_inputs).detach().numpy()[0] * (self.max_gpu_power - self.min_gpu_power) + self.min_gpu_power
+        stop_time[2] = process_time()
+        start_time[3] = process_time()
         time_gpu = float(self.predictor_time_gpu(time_inputs).detach().numpy()[0])
+        stop_time[3] = process_time()
         energy_gpu = float(power_gpu * time_gpu)
 
-        return time_cpu, energy_cpu, time_gpu, energy_gpu
+        return time_cpu, energy_cpu, time_gpu, energy_gpu,(stop_time-start_time)*1e6
