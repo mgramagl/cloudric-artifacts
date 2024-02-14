@@ -6,6 +6,7 @@
 First, unzip the LPU_models data into the corresponding folder
 ```bash
 unzip LPU_models.zip -d predictor_app_python/data/
+unzip LPU_models.zip -d predictor_app_cplus/data/
 ```
 
 

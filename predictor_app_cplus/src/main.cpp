@@ -16,7 +16,7 @@ void load_trace(vector<vector<string>> *content)
   // vector<vector<string>> content;
   vector<string> row;
   string line, word;
-
+  int count=0;
   fstream file (fname, ios::in);
   if(file.is_open())
   {
@@ -32,6 +32,7 @@ void load_trace(vector<vector<string>> *content)
           row.push_back(word);
         }
         content->push_back(row);
+        count++;
     }
   }
   else
@@ -130,9 +131,7 @@ int main()
     gpu_pred = gpu_lpu_models->inference(values);
     key = {stof(content[i][1]),stoi(content[i][2]),stoi(content[i][4]),stoi(content[i][3])};
     auto it = cpu_gtruth.find(key);  
-    if (it==cpu_gtruth.end()){
-      std::cout<<"ERROR CPU"<<std::endl;
-    } else {
+    if (it!=cpu_gtruth.end()){
       for (auto & cpu_val : it->second) {
         float error = 100*((cpu_pred[0]-cpu_val)/cpu_val);
         results<<content[i][1]<<","<<content[i][2]<<","<<content[i][3]<<","<<content[i][4]<<",CPU,"<<cpu_pred[0]<<","<<cpu_val<<","<<error<<std::endl;
@@ -140,9 +139,7 @@ int main()
     };
     
     auto it2 = gpu_gtruth.find(key);  
-    if (it2==gpu_gtruth.end()){
-      std::cout<<"ERROR GPU"<<std::endl;
-    } else {
+    if (it2!=gpu_gtruth.end()){
       for (auto & gpu_val : it2->second) {
         float error = 100*((gpu_pred[0]-gpu_val)/gpu_val);
         results<<content[i][1]<<","<<content[i][2]<<","<<content[i][3]<<","<<content[i][4]<<",GPU,"<<gpu_pred[0]<<","<<gpu_val<<","<<error<<std::endl;
