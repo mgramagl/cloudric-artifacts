@@ -4,3 +4,4 @@ GPU_dataset.csv
 */build/lpu_models*
 results.csv
 ecdf.pdf
+onnx_model/*.onnx

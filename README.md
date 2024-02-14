@@ -46,6 +46,25 @@ pip install --no-cache-dir -r requirements.txt
 ```
 3. The script will generate all the required files in the predictor_app_python/results folder
 
+
+### (Optional) Conversting the PyTorch model into Onnx
+
+Using the same configuration as the Python prediction, launch the converter
+```bash
+docker exec -w /app -it python python3 /app/conv.py
+```
+
+or
+
+```bash
+ cd predictor_app_python
+ python3 conv.py
+```
+
+The exported models are stored in the predictor_app_python/onnx_model folder. If you want to use them with the C++ predictor discussed next, copy them in the predictor_app_cplus/data folder.
+
+
+
 ### C++ prediction
 
 We also provide the C++ code to run the model in inference using ONNX, as we implemented in our evaluation.
@@ -88,4 +107,5 @@ make
 cd build
 ./lpu_models_app
 ```
+5. The script will generate the csv file in the predictor_app_cplus/results folder 
 
