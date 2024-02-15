@@ -116,11 +116,18 @@ int main()
   std::string gpu_model_filepath = "../data/predictor_time_gpu.onnx";
   LpuModels *gpu_lpu_models = new LpuModels(gpu_model_filepath);
 
+  cpu_model_filepath = "../data/predictor_power_cpu.onnx";
+  LpuModels *cpu_lpu_power_models = new LpuModels(cpu_model_filepath);
+  gpu_model_filepath = "../data/predictor_power_gpu.onnx";
+  LpuModels *gpu_lpu_power_models = new LpuModels(gpu_model_filepath);
+
+
+
   // Run Inference
   std::vector<float> values(3);
   std::pair<std::vector<float>,float> cpu_res,gpu_res;
   std::vector<float> cpu_pred, gpu_pred;
-  float cpu_time,gpu_time;
+  float cpu_time,gpu_time,cpu_p_time,gpu_p_time;
 
   results<<"SNR,MCS,PRBs,TBS,m_type,predicted_dec_time,dec_time,p_err,itime_latency,itime_energy"<<std::endl;
   tuple<float,int,int,int> key;
@@ -134,14 +141,23 @@ int main()
     cpu_time = std::get<1>(cpu_res);
 
     gpu_res = gpu_lpu_models->inference(values);
-    gpu_pred = std::get<0>(gpu_res);
+    gpu_pred = std::get<0>(cpu_res);
     gpu_time = std::get<1>(gpu_res);
+
+    cpu_res = cpu_lpu_power_models->inference(values);
+    cpu_p_time = std::get<1>(cpu_res);
+
+    gpu_res = gpu_lpu_power_models->inference(values);
+    gpu_p_time = std::get<1>(gpu_res);
+
+
+
     key = {stof(content[i][1]),stoi(content[i][2]),stoi(content[i][4]),stoi(content[i][3])};
     auto it = cpu_gtruth.find(key);  
     if (it!=cpu_gtruth.end()){
       for (auto & cpu_val : it->second) {
         float error = 100*((cpu_pred[0]-cpu_val)/cpu_val);
-        results<<content[i][1]<<","<<content[i][2]<<","<<content[i][3]<<","<<content[i][4]<<",CPU,"<<cpu_pred[0]<<","<<cpu_val<<","<<error<<","<<cpu_time<<std::endl;
+        results<<content[i][1]<<","<<content[i][2]<<","<<content[i][3]<<","<<content[i][4]<<",CPU,"<<cpu_pred[0]<<","<<cpu_val<<","<<error<<","<<cpu_time<<","<<cpu_p_time<<std::endl;
       }
     };
     
@@ -149,7 +165,7 @@ int main()
     if (it2!=gpu_gtruth.end()){
       for (auto & gpu_val : it2->second) {
         float error = 100*((gpu_pred[0]-gpu_val)/gpu_val);
-        results<<content[i][1]<<","<<content[i][2]<<","<<content[i][3]<<","<<content[i][4]<<",GPU,"<<gpu_pred[0]<<","<<gpu_val<<","<<error<<","<<gpu_time<<std::endl;
+        results<<content[i][1]<<","<<content[i][2]<<","<<content[i][3]<<","<<content[i][4]<<",GPU,"<<gpu_pred[0]<<","<<gpu_val<<","<<error<<","<<gpu_time<<","<<gpu_p_time<<std::endl;
       }
     };
   }  

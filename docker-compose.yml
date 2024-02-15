@@ -6,6 +6,7 @@ services:
       dockerfile: ./predictor_app_python/Dockerfile
     volumes:
       - ./predictor_app_python:/app
+      - ./results:/app/results
     container_name: python
     stdin_open: true 
     tty: true
@@ -16,6 +17,7 @@ services:
       dockerfile: ./predictor_app_cplus/Dockerfile
     volumes:
       - ./predictor_app_cplus:/app
+      - ./results:/app/results
     container_name: cplus
     stdin_open: true 
     tty: true
