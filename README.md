@@ -2,7 +2,9 @@
 
 CloudRIC is a system that meets specific reliability targets in 5G FEC processing while sharing pools of heterogeneous processors among DUs, which leads to more cost- and energy-efficient vRANs. The details of the solution are presented in XXX. As described therein, CloudRIC exploits data-driven models of Logical Processing Units. This repository includes the LPU models of an Intel Xeon Gold 6240R CPU and of an NVIDIA GPU V100 and the tools to replicate the results shown in Figs. 16 and 17 of XXX. 
 
-To use these models and replicate the results shown in Figs. 16 and 17 of XXX, we provide two methods: Docker or Baremetal. Moreover, in addition to the C implementation used in our paper (for speed), we also provide a Python implementation for comparison.
+In addition to the C implementation used in our paper (for speed), we also provide a Python implementation for comparison. 
+
+To use these models and replicate the results shown in Figs. 16 and 17 of XXX, we provide two methods: Docker (recommended) or Baremetal. 
 
 ## Docker method
 ### 1) Data preparation 
