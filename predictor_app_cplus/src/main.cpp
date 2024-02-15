@@ -101,7 +101,7 @@ int main()
 {
   // Load trace
   ofstream results;
-  results.open ("../results/results.csv");
+  results.open ("../results/cplus/results.csv");
   std::cout<<"[INFO] Loading data"<<std::endl;
   vector<vector<string>> content;
   load_trace(&content);
@@ -116,10 +116,10 @@ int main()
   std::string gpu_model_filepath = "../data/predictor_time_gpu.onnx";
   LpuModels *gpu_lpu_models = new LpuModels(gpu_model_filepath);
 
-  cpu_model_filepath = "../data/predictor_power_cpu.onnx";
-  LpuModels *cpu_lpu_power_models = new LpuModels(cpu_model_filepath);
-  gpu_model_filepath = "../data/predictor_power_gpu.onnx";
-  LpuModels *gpu_lpu_power_models = new LpuModels(gpu_model_filepath);
+  std::string cpu_energy_model_filepath = "../data/predictor_power_cpu.onnx";
+  LpuModels *cpu_lpu_power_models = new LpuModels(cpu_energy_model_filepath);
+  std::string gpu_energy_model_filepath = "../data/predictor_power_gpu.onnx";
+  LpuModels *gpu_lpu_power_models = new LpuModels(gpu_energy_model_filepath);
 
 
 
@@ -158,6 +158,7 @@ int main()
       for (auto & cpu_val : it->second) {
         float error = 100*((cpu_pred[0]-cpu_val)/cpu_val);
         results<<content[i][1]<<","<<content[i][2]<<","<<content[i][3]<<","<<content[i][4]<<",CPU,"<<cpu_pred[0]<<","<<cpu_val<<","<<error<<","<<cpu_time<<","<<cpu_p_time<<std::endl;
+        break;
       }
     };
     
@@ -166,6 +167,7 @@ int main()
       for (auto & gpu_val : it2->second) {
         float error = 100*((gpu_pred[0]-gpu_val)/gpu_val);
         results<<content[i][1]<<","<<content[i][2]<<","<<content[i][3]<<","<<content[i][4]<<",GPU,"<<gpu_pred[0]<<","<<gpu_val<<","<<error<<","<<gpu_time<<","<<gpu_p_time<<std::endl;
+        break;
       }
     };
   }  

@@ -109,3 +109,15 @@ cd build
 ```
 5. The script will generate the csv file in the predictor_app_cplus/results folder 
 
+### Plots generation
+
+1. (Optional) If the containers were not used, copy the corresponding csv files in the results directory
+```bash
+mv predictor_app_python/results/results.csv results/python
+mv predictor_app_cplus/results/results.csv results/cplus
+```
+2. Run the plot generation script
+```bash
+docker exec -w /app -it python python3 /app/plot.py
+```
+3. Find the plots in the respective subfolders in the results folder.
