@@ -40,25 +40,29 @@ docker exec -w /app -it python python3 /app/app.py
 ```bash
 docker exec -w /app -it python python3 /app/conv.py
 ```
-3.2) Compile the C application that uses the model
+
+3.2) (Optional) The exported models are stored in the predictor_app_python/onnx_model folder. Copy them in the predictor_app_cplus/data folder.
+
+
+3.3) Compile the C application that uses the model
 
 ```bash
 docker exec -w /app -it cplus make
 ```
 
-3.3. Run the application
+3.4. Run the application
 ```bash
 docker exec -w /app/build -it cplus ./lpu_models_app
 ```
 
-3.4) The application will generate a CSV file in results/cplus folder. The file is a dataset with the same cases tested used before using the ONNX model. 
+3.5) The application will generate a CSV file in results/cplus folder. The file is a dataset with the same cases tested used before using the ONNX model. 
 
 ### 4) Analyze the results
 
 4.1. To analyze the results, we have prepared a script that creates plots visualizing the data. 
 
 ```bash
-docker exec -w /app -it python python3 /app/plot.py
+docker exec -w /app -it python python3 /app/results/plot.py
 ```
 4.1. For each model (PyTorch or ONNX), there are two plots in the respective results/ folder.
 - The file ecdf.pdf depicts the empirical CDF of the prediction error (WCET approach in Fig. 17 of XXX). Both PyTorch and ONNX models should provide the same performance.
@@ -137,7 +141,7 @@ mv predictor_app_cplus/results/results.csv results/cplus
 4.2. To analyze the results, we have prepared a script that creates plots visualizing the data. 
 
 ```bash
-????
+ python3 results/plot.py
 ```
 4.1. For each model (PyTorch or ONNX), there are two plots in the respective results/ folder.
 - The file ecdf.pdf depicts the empirical CDF of the prediction error (WCET approach in Fig. 17 of XXX). Both PyTorch and ONNX models should provide the same performance.

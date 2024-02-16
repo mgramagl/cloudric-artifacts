@@ -8,7 +8,7 @@
     @affiliation:
         - IMDEA Networks institute
 '''
-
+import os
 import numpy as np
 import pandas as pd
 from statsmodels.distributions.empirical_distribution import ECDF
@@ -55,7 +55,7 @@ def plot_timings(path):
     results_df = pd.read_csv(f"{path}/results.csv", sep=",", header=0)
     print(f"[INFO] Generating plots for {path}")
     
-    results_df=results_df[(results_df["itime_latency"]<1000)&(results_df["itime_energy"]<1000)]
+    results_df=results_df[(results_df["itime_latency"]<1000)]
 
     fig, ax = plt.subplots(1, 1, figsize=(16, 8), sharex=True)
 
@@ -63,11 +63,6 @@ def plot_timings(path):
     x = np.unique(results_df.itime_latency)
     y = ecdf(x)
     ax.plot(x, y, c="red",label="Inference Time (Latency)")
-
-    ecdf = ECDF(results_df.itime_energy)
-    x = np.unique(results_df.itime_energy)
-    y = ecdf(x)
-    ax.plot(x, y, c="blue",label="Inference Time (Energy)")
 
     ax.grid(True, zorder=0)
     
@@ -79,9 +74,9 @@ def plot_timings(path):
     fig.savefig(f"{path}/timings.pdf")
 
 
-plot_ecdf("results/python/")
-plot_ecdf("results/cplus/")
-
-
-plot_timings("results/python/")
-plot_timings("results/cplus/")
+if os.path.exists("results/python/results.csv"):
+    plot_ecdf("results/python/")
+    plot_timings("results/python/")
+if os.path.exists("results/cplus/results.csv"):
+    plot_timings("results/cplus/")
+    plot_ecdf("results/cplus/")
