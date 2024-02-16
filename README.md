@@ -42,8 +42,9 @@ docker exec -w /app -it python python3 /app/conv.py
 ```
 
 3.2) (Optional) The exported models are stored in the predictor_app_python/onnx_model folder. Copy them in the predictor_app_cplus/data folder.
-
-
+```bash
+cp predictor_app_python/onnx_model/*.onnx predictor_app_cplus/data/
+```
 3.3) Compile the C application that uses the model
 
 ```bash
