@@ -19,7 +19,10 @@ cpu_ground_truth_df = pd.read_csv("data/CPU_dataset.csv", sep=",", header=0)
 gpu_ground_truth_df = pd.read_csv("data/GPU_dataset.csv", sep=",", header=0)
 
 # Results storage file
-f = open("results/python/results.csv", "w")
+if os.path.exists("results/python/results.csv"):
+    f = open("results/python/results.csv", "w")
+else:
+    f =  open("results/results.csv", "w")
 f.write("SNR,MCS,PRBs,TBS,m_type,predicted_dec_time,dec_time,p_err,itime_latency\n")
 
 def estimate_service_time(SNR, MCS, PRBs, TBS):
