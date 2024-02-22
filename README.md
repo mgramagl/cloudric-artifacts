@@ -4,7 +4,7 @@ CloudRIC is a system that meets specific reliability targets in 5G FEC processin
 
 In addition to the C implementation used in our paper (for speed), we also provide a Python implementation for comparison. 
 
-To use these models and replicate the results shown in Figs. 16 and 17 of XXX, we provide two methods: Docker (recommended) or Baremetal. 
+To use these models and replicate the results shown in Figs. 16 and 17 of https://doi.org/10.1145/3636534.3649381, we provide two methods: Docker (recommended) or Baremetal. 
 
 ## Docker method
 ### 1) Data preparation 
