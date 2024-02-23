@@ -1,15 +1,15 @@
 # CloudRic Artifacts
 
-CloudRIC is a system that meets specific reliability targets in 5G FEC processing while sharing pools of heterogeneous processors among DUs, which leads to more cost- and energy-efficient vRANs. The details of the solution are presented in https://doi.org/10.1145/3636534.3649381. As described therein, CloudRIC exploits data-driven models of Logical Processing Units. This repository includes the LPU models of an Intel Xeon Gold 6240R CPU and of an NVIDIA GPU V100 and the tools to replicate the results shown in Figs. 16 and 17 of https://doi.org/10.1145/3636534.3649381. 
+CloudRIC is a system that meets specific reliability targets in 5G FEC processing while sharing pools of heterogeneous processors among DUs, which leads to more cost- and energy-efficient vRANs. The details of the solution are presented in [https://doi.org/10.1145/3636534.3649381](https://doi.org/10.1145/3636534.3649381). As described therein, CloudRIC exploits data-driven models of Logical Processing Units. This repository includes the LPU models of an Intel Xeon Gold 6240R CPU and of an NVIDIA GPU V100 and the tools to replicate the results shown in Figs. 16 and 17 of [https://doi.org/10.1145/3636534.3649381](https://doi.org/10.1145/3636534.3649381). 
 
 In addition to the C implementation used in our paper (for speed), we also provide a Python implementation for comparison. 
 
-To use these models and replicate the results shown in Figs. 16 and 17 of https://doi.org/10.1145/3636534.3649381, we provide two methods: Docker (recommended) or Baremetal. 
+To use these models and replicate the results shown in Figs. 16 and 17 of [https://doi.org/10.1145/3636534.3649381](https://doi.org/10.1145/3636534.3649381), we provide two methods: Docker (recommended) or Baremetal. 
 
 ## Docker method
 ### 1) Data preparation 
 
-1.1) First, unzip the LPU_models data into the corresponding folder
+1.1) We provide two pre-trained LPU models. The data used to train the models is available in [https://doi.org/10.5281/zenodo.10691661](https://doi.org/10.5281/zenodo.10691661). First, unzip the LPU_models data into the corresponding folder
 ```bash
 unzip LPU_models.zip -d predictor_app_python/data/
 unzip LPU_models.zip -d predictor_app_cplus/data/
@@ -25,7 +25,7 @@ docker-compose up -d
 ```
 ### 2) PyTorch LPU model
 
-2.1) Run the application
+2.1) Run the application. The application executes both models for a common input trace available in the data folders. As described in the paper, the trace has been generated from real-world measurements.
 
 ```bash
 docker exec -w /app -it python python3 /app/app.py
@@ -81,7 +81,8 @@ You need a working installation of Python 3.11 with pip
 pip install --no-cache-dir -r requirements.txt
 ```
 
-1.2) Unzip the LPU_models data into the corresponding folder
+
+1.2) We provide two pre-trained LPU models. The data used to train the models is available in [https://doi.org/10.5281/zenodo.10691661](https://doi.org/10.5281/zenodo.10691661). Unzip the LPU_models data into the corresponding folder
 ```bash
 unzip LPU_models.zip -d predictor_app_python/data/
 unzip LPU_models.zip -d predictor_app_cplus/data/
@@ -123,7 +124,7 @@ sudo ldconfig
 cd predictor_app_cplus
 make
 ```
-3.6) Run the application
+3.6) Run the application. The application executes both models for a common input trace available in the data folders. As described in the paper, the trace has been generated from real-world measurements.
 ```bash
 cd build
 ./lpu_models_app
