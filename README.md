@@ -97,7 +97,7 @@ unzip LPU_models.zip -d predictor_app_cplus/data/
  python3 app.py
 ```
 
-2.2) The script will generate a CSV file in predictor_app_python/python folder. The file is a dataset with a number of test cases, each test case correspoding to a Transport Block with a different combinations of SNR, MCS and Radio Blocks. For each test case, the dataset includes the predicted processing time, the ground truth (measured offline), and the actual inference latency.
+2.2) The script will generate a CSV file in predictor_app_python/result folder. The file is a dataset with a number of test cases, each test case correspoding to a Transport Block with a different combinations of SNR, MCS and Radio Blocks. For each test case, the dataset includes the predicted processing time, the ground truth (measured offline), and the actual inference latency.
 
 
 ### 3) Onnx LPU model
@@ -113,7 +113,7 @@ unzip LPU_models.zip -d predictor_app_cplus/data/
 
 3.3) Download the ONNX runtime and uncompress it to the /opt folder
 ```bash
-wget -qO- https://github.com/microsoft/onnxruntime/releases/download/v1.16.3/onnxruntime-linux-x64-1.16.3.tgz | tar xz -C /opt 
+wget -qO- https://github.com/microsoft/onnxruntime/releases/download/v1.16.3/onnxruntime-linux-x64-1.16.3.tgz | sudo tar xz -C /opt 
 ```
 3.4) Add the folder to the LD_LIBRARY_PATH
 ```bash

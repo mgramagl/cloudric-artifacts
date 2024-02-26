@@ -6,6 +6,7 @@
 #include <set>
 #include <tuple>
 #include <sstream>
+#include <filesystem>
 
 #include "lpu_models.hpp"
 
@@ -102,7 +103,12 @@ int main()
 {
   // Load trace
   ofstream results;
-  results.open ("../results/cplus/results.csv");
+  if (std::filesystem::is_directory("../results/cplus")) {
+    results.open ("../results/cplus/results.csv");
+  } else {
+    results.open ("../../results/cplus/results.csv");
+  }
+
   std::cout<<"[INFO] Loading data"<<std::endl;
   vector<vector<string>> content;
   load_trace(&content);

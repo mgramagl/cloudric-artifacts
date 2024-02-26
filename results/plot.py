@@ -67,7 +67,7 @@ def plot_timings(path):
     ax.grid(True, zorder=0)
     
     ax.legend()
-    ax.set_xlabel("Inference Time [ns]", fontsize=16)
+    ax.set_xlabel("Inference Time [us]", fontsize=16)
     ax.set_ylabel("ECDF", fontsize=16)
 
 
